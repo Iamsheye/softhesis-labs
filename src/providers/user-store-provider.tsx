@@ -1,7 +1,7 @@
 "use client";
 import { type ReactNode, createContext, useRef, useContext, use } from "react";
 import { useStore } from "zustand";
-import { type UserStore, createUsersStore } from "src/store/user-store";
+import { State, type UserStore, createUsersStore } from "src/store/user-store";
 
 export type UserStoreApi = ReturnType<typeof createUsersStore>;
 
@@ -26,13 +26,12 @@ export const UserStoreProvider = ({ children }: UserStoreProviderProps) => {
   );
 };
 
-export const useUserStore = <T,>(selector: (store: UserStore) => T): T => {
+export const useUserStore = <T,>(selector: (store: State) => T): T => {
   const store = useContext(UserStoreContext);
 
   if (!store) {
     throw new Error(`useCounterStore must be used within UserStoreProvider`);
   }
 
-  // @ts-ignore
   return useStore(store, selector);
 };
