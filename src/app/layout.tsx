@@ -1,9 +1,12 @@
-import { Inter } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import type { Metadata } from "next";
 import { UserStoreProvider } from "src/providers/user-store-provider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const anton = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Softhesis Labs - Next.js Test",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={anton.className}>
         <UserStoreProvider>{children}</UserStoreProvider>
       </body>
     </html>

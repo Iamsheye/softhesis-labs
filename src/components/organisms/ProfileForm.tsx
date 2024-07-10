@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { useUserStore } from "src/providers/user-store-provider";
 import profileSchema from "src/schemas/profile";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
+import Loading from "../atoms/Loading";
 
 export type IProfileForm = z.infer<typeof profileSchema>;
 
@@ -30,7 +31,7 @@ const ProfileForm = () => {
     resolver: zodResolver(profileSchema),
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setValue("name", user.name);
     setValue("address", user.address);
     setValue("age", user.age);
@@ -38,14 +39,19 @@ const ProfileForm = () => {
 
   const onSubmit: SubmitHandler<IProfileForm> = (data) => {
     updateUser(data);
+    router.push("/dashboard");
   };
 
   if (!user.email) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center">
+        <Loading />
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, (err) => console.log(err))}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <FormField
         register={register}
         name="name"

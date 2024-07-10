@@ -40,7 +40,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, (err) => console.log(err))}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <FormField
         register={register}
         name="email"

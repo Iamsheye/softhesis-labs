@@ -1,5 +1,5 @@
 import React from "react";
-import {  UseFormRegister } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 import Label from "../atoms/Label";
 import Input from "../atoms/Input";
 import { ILoginForm } from "../organisms/LoginForm";
@@ -13,10 +13,12 @@ type FormFieldProps = {
 };
 
 const FormField = ({ label, errorText, name, register }: FormFieldProps) => (
-  <div>
+  <div className="flex flex-col">
     <Label htmlFor={name}>{label}</Label>
     <Input {...register(name)} />
-    {errorText && <span>{errorText}</span>}
+    {errorText && (
+      <span className="text-rose-600 text-xs pt-1 font-serif">{errorText}</span>
+    )}
   </div>
 );
 
